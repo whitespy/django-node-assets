@@ -23,29 +23,62 @@ Configuration
         'django_node_assets',
     ]
 
-2. Add NodeModulesFinder or ManifestNodeModulesFinder to STATICFILES_FINDERS:
+2. Add NodeModulesFinder to STATICFILES_FINDERS:
 
 .. code:: python
 
     STATICFILES_FINDERS = [
         ...
-        'django_node_assets.finders.ManifestNodeModulesFinder',
+        'django_node_assets.finders.NodeModulesFinder',
     ]
 
 3. Specify absolute path to the package.json file:
 
 .. code:: python
 
-    NODE_PACKAGE_JSON = '/home/www/projects/foo/requirements/package.json'
+    NODE_PACKAGE_JSON = '/var/assets/package.json'
+
+.. note::
+
+    A package.json must have the "dependencies" section and look like:
+
+    .. code:: json
+
+        {
+            "dependencies": {
+                "jquery": "^3.2.1",
+                "jquery-migrate": "^3.0.0",
+            }
+        }
+
+    Details here: https://docs.npmjs.com/files/package.json#dependencies
+
 
 4. Specify the absolute path to a directory where the **nmpinstall** management command will install assets:
 
 .. code:: python
 
-    NODE_MODULES_ROOT = '/home/www/assets/foo/node_modules'
+    NODE_MODULES_ROOT = '/var/assets/node_modules'
 
-5. Specify path to the nmp executable file (optional /usr/bin/npm by default):
+.. note::
+
+    A base dir must be called **node_modules**.
+
+5. Specify path to the nmp executable (optional)
 
 .. code:: python
 
     NODE_PACKAGE_MANAGER_EXECUTABLE = '/usr/local/bin/npm'
+
+.. note::
+
+    The Node.js package manager must be already installed in your system.
+
+Usage
+-----
+
+Call the **nmpinstall** management command to install assets specified in the package.json
+
+.. code:: bash
+
+    $ python manage.py npminstall

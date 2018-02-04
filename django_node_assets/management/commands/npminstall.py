@@ -20,7 +20,7 @@ def node_package_context():
 
 
 class Command(BaseCommand):
-    help = 'Installs all dependencies specified in package.json'
+    help = 'Installs all dependencies specified in the package.json'
 
     def handle(self, **options):
         if not hasattr(settings, 'NODE_PACKAGE_JSON'):
