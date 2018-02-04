@@ -14,7 +14,7 @@ Installation
 Configuration
 -------------
 
-1. Add 'django_node_assets' to your INSTALLED_APPS:
+Add 'django_node_assets' to your INSTALLED_APPS:
 
 .. code:: python
 
@@ -23,7 +23,7 @@ Configuration
         'django_node_assets',
     ]
 
-2. Add NodeModulesFinder to STATICFILES_FINDERS:
+Add NodeModulesFinder to STATICFILES_FINDERS:
 
 .. code:: python
 
@@ -32,7 +32,7 @@ Configuration
         'django_node_assets.finders.NodeModulesFinder',
     ]
 
-3. Specify absolute path to the package.json file:
+Specify absolute path to the package.json file:
 
 .. code:: python
 
@@ -54,7 +54,7 @@ Configuration
     Details here: https://docs.npmjs.com/files/package.json#dependencies
 
 
-4. Specify the absolute path to a directory where the **nmpinstall** management command will install assets:
+Specify the absolute path to a directory where the **nmpinstall** management command will install assets:
 
 .. code:: python
 
@@ -64,7 +64,7 @@ Configuration
 
     A base dir must be called **node_modules**.
 
-5. Specify path to the nmp executable (optional)
+Specify path to the nmp executable (optional)
 
 .. code:: python
 
