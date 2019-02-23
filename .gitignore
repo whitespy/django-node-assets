@@ -1,2 +1,5 @@
 *.py[cow]
 .idea
+build/
+dist/
+django_node_assets.egg-info/

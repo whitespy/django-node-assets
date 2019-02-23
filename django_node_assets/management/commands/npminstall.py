@@ -33,8 +33,12 @@ class Command(BaseCommand):
                        executable=getattr(settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'),
                        shell=True, stdout=PIPE, stderr=STDOUT) as p:
                 for line in p.stdout:
-                    self.stdout.write(line.decode())
+                    decoded_line = line.decode()
+                    if decoded_line.startswith('npm WARN'):
+                        self.stdout.write(self.style.WARNING(decoded_line), ending='')
+                    else:
+                        self.stdout.write(decoded_line)
         if p.poll() == 0:
-            self.stdout.write('All dependencies has been successfully installed.')
+            self.stdout.write(self.style.SUCCESS('All dependencies has been successfully installed.'))
         else:
             self.stderr.write('An error occurred.')

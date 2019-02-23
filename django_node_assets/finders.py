@@ -1,9 +1,9 @@
 import json
 
 from django.conf import settings
+from django.contrib.staticfiles.finders import BaseFinder
 from django.contrib.staticfiles.utils import get_files
 from django.core.files.storage import FileSystemStorage
-from django.contrib.staticfiles.finders import BaseFinder
 
 
 class NodeModulesFinder(BaseFinder):
