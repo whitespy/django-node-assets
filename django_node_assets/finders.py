@@ -72,9 +72,14 @@ class NodeModulesFinder(BaseFinder):
         'node_modules',
     ]
 
-    def find(self, path, *args, **kwargs):
+    def find(self, path, all=False):
+        matches = []
         if self.storage.exists(path):
-            return self.storage.path(path)
+            matched_path = self.storage.path(path)
+            if not all:
+                return matched_path
+            matches.append(matched_path)
+        return matches
 
     def list(self, *args, **kwargs):
         for path in get_files(self.storage, self.ignore_patterns):
