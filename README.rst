@@ -2,7 +2,17 @@
 Django-node-assets
 ##################
 
-The Django application that allows install and serve assets via Node.js package manager infrastructure.
+The Django application that allows install and serve static assets via Node.js package manager infrastructure. The
+application exposes management command to install dependencies from your **package.json** and several static files
+finders to find files from installed node packages and exclude metadata of node packages and unwanted files when
+static files will be collected via Django`s **collectstatic** management command execution.
+
+Features
+--------
+
+- Avoiding vendoring static assets in your repository like jQuery plugins, Bootstrap toolkit, etc
+- Avoiding mess in **STATIC_ROOT** through exclusion node packages` metatadata and unwanted files
+- Installing dependencies by Django`s management command
 
 Installation
 ------------
@@ -47,7 +57,7 @@ Specify absolute path to the package.json file:
         {
             "dependencies": {
                 "jquery": "^3.2.1",
-                "jquery-migrate": "^3.0.0",
+                "bootstrap": "^3.3.5",
             }
         }
 
@@ -64,7 +74,7 @@ Specify the absolute path to a directory where the **nmpinstall** management com
 
     A base dir must be called **node_modules**.
 
-Specify path to the nmp executable (optional)
+Specify path to the node package manager executable (optional)
 
 .. code:: python
 
@@ -72,13 +82,24 @@ Specify path to the nmp executable (optional)
 
 .. note::
 
-    The Node.js package manager must be already installed in your system.
+    The node package manager must be already installed in your system.
 
 Usage
 -----
 
-Call the **nmpinstall** management command to install assets specified in the package.json
+Call the **nmpinstall** management command to install dependencies specified in the package.json
 
 .. code:: bash
 
     $ python manage.py npminstall
+
+Use Django`s static template tag to link installed assets
+
+.. code:: html
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <!-- Some amazing markup -->
+    <script src="{% static 'jquery/dist/jquery.min.js' }"><script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js' }"><script>
