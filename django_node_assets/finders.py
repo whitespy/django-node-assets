@@ -8,7 +8,9 @@ from django.core.files.storage import FileSystemStorage
 
 class NodeModulesFinder(BaseFinder):
     """
-    A static files finder that excludes extra content of node modules.
+    The static files finder that find static files stored
+    in the NODE_MODULES_ROOT, and excludes metadata and unwanted files when
+    static files will be collected.
     """
     storage = FileSystemStorage(location=settings.NODE_MODULES_ROOT)
     ignore_patterns = [
@@ -88,8 +90,9 @@ class NodeModulesFinder(BaseFinder):
 
 class ManifestNodeModulesFinder(NodeModulesFinder):
     """
-    A static files finder that looks in the directory of each dependency
-    specified in the package.json and excludes extra files.
+    The static files finder that looks in the directory of each dependency
+    specified in the package.json and excludes metadata and unwanted files when
+    static files will be collected.
     """
     def list(self, *args, **kwargs):
         try:
