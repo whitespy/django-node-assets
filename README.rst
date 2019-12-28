@@ -2,6 +2,12 @@
 Django-node-assets
 ##################
 
+.. image:: https://travis-ci.org/whitespy/django-node-assets.svg?branch=master
+    :target: https://travis-ci.org/whitespy/django-node-assets
+
+.. image:: https://badge.fury.io/py/django-node-assets.svg
+    :target: https://badge.fury.io/py/django-node-assets
+|
 The Django application that allows install and serve static assets via Node.js package manager infrastructure. The
 application exposes management command to install dependencies from your **package.json** and several static files
 finders to find files from installed node packages and exclude metadata of node packages and unwanted files when
