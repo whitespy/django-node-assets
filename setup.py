@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-node-assets',
-    version='0.9.4',
+    version='0.9.5',
     description='The Django application that allows install and serve assets via Node.js package '
                 'manager infrastructure.',
     author='Andrey Butenko',
@@ -12,14 +12,9 @@ setup(
     long_description=open('README.rst').read(),
     packages=find_packages(),
     include_package_data=True,
-    keywords='django assets staticfiles Node.js npm',
+    keywords='django assets staticfiles Node.js npm package.json',
     classifiers=[
         'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -28,5 +23,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Framework :: Django',
+        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
     ]
 )
