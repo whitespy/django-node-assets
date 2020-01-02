@@ -14,31 +14,28 @@ class NodePackageContext:
         self.package_json = os.path.join(self.package_dir, 'package.json')
 
     def __enter__(self):
-        if not os.path.samefile(self.package_json, settings.NODE_PACKAGE_JSON):
+        if self.package_json != str(settings.NODE_PACKAGE_JSON):
             shutil.copy(settings.NODE_PACKAGE_JSON, self.package_json)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if not os.path.samefile(self.package_json, settings.NODE_PACKAGE_JSON) and os.path.exists(self.package_json):
+        if self.package_json != str(settings.NODE_PACKAGE_JSON) and os.path.exists(self.package_json):
             os.remove(self.package_json)
         return False
 
 
 class Command(BaseCommand):
-    help = 'Installs all dependencies specified in the package.json'
+    help = 'Installs all dependencies listed in the package.json'
 
     def handle(self, **options):
         if not hasattr(settings, 'NODE_PACKAGE_JSON'):
             self.stderr.write('The NODE_PACKAGE_JSON option is not specified.')
             return
-        if not os.path.exists(settings.NODE_PACKAGE_JSON):
-            self.stderr.write('The package.json not found.')
-            return
-        if not os.path.exists(settings.NODE_MODULES_ROOT):
-            self.stderr.write('The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT))
+        if not os.path.isfile(settings.NODE_PACKAGE_JSON):
+            self.stderr.write('The {} file not found.'.format(settings.NODE_PACKAGE_JSON))
             return
         if not os.path.isdir(settings.NODE_MODULES_ROOT):
-            self.stderr.write('The {} is not directory.'.format(settings.NODE_MODULES_ROOT))
+            self.stderr.write('The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT))
             return
         with NodePackageContext() as node_package_context:
             with Popen(
