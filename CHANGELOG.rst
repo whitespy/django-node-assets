@@ -2,6 +2,11 @@
 Changelog
 #########
 
+Release 0.9.7
+-------------
+
+- Fixed package.json copying
+
 Release 0.9.6
 -------------
 
