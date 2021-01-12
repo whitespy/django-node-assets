@@ -2,6 +2,12 @@
 Changelog
 #########
 
+Release 0.9.8
+-------------
+
+- Dropped Python 3.4, Python 3.5 and Django 2.0 support
+- Declared compatibility with Python 3.9 and Django 3.1
+
 Release 0.9.7
 -------------
 
