@@ -1,9 +1,9 @@
-dist: bionic
+dist: focal
 
 language: python
 
 python:
-  - 3.7
+  - 3.9
 
 install:
   - pip install flake8
