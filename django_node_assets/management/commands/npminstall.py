@@ -1,7 +1,7 @@
 import os
 import os.path
 import shutil
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import PIPE, STDOUT, Popen
 
 from django.conf import settings
 from django.core.management.base import BaseCommand

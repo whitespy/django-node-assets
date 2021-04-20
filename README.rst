@@ -8,6 +8,9 @@ Django-node-assets
 .. image:: https://badge.fury.io/py/django-node-assets.svg
     :target: https://badge.fury.io/py/django-node-assets
 
+.. image:: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
+    :target: https://pycqa.github.io/isort/
+
 |
 
 The Django application that allows to install and to serve static assets via Node.js package manager infrastructure.
