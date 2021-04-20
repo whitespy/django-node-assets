@@ -10,8 +10,8 @@ Django-node-assets
 
 |
 
-The Django application that allows install and serve static assets via Node.js package manager infrastructure. The
-application exposes management command to install dependencies from your **package.json** and several static files
+The Django application that allows to install and to serve static assets via Node.js package manager infrastructure.
+The application exposes management command to install dependencies from your **package.json** and several static files
 finders to find files from installed node packages and exclude metadata of node packages and unwanted files when
 static files will be collected via Django`s **collectstatic** management command execution.
 
@@ -46,7 +46,8 @@ Add NodeModulesFinder to STATICFILES_FINDERS:
 .. code:: python
 
     STATICFILES_FINDERS = [
-        ...
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
         'django_node_assets.finders.NodeModulesFinder',
     ]
 
