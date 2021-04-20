@@ -52,6 +52,6 @@ class Command(BaseCommand):
                     else:
                         self.stdout.write(decoded_line)
         if p.poll() == 0:
-            self.stdout.write(self.style.SUCCESS('All dependencies has been successfully installed.'))
+            self.stdout.write(self.style.SUCCESS('All dependencies have been successfully installed.'))
         else:
             self.stderr.write('An error occurred.')
