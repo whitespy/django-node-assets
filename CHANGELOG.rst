@@ -2,6 +2,12 @@
 Changelog
 #########
 
+Release 0.9.9
+-------------
+
+- Sorted imports by isort
+- Updated documentation
+
 Release 0.9.8
 -------------
 
