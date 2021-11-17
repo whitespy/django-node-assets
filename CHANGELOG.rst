@@ -2,6 +2,11 @@
 Changelog
 #########
 
+Release 0.9.10
+--------------
+
+- Declared compatibility with Python 3.10
+
 Release 0.9.9
 -------------
 
