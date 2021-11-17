@@ -9,7 +9,7 @@ setup(
     author='Andrey Butenko',
     author_email='whitespysoftware@gmail.ru',
     url='https://github.com/whitespy/django-node-assets',
-    long_description=open('README.rst').read(),
+    long_description=open('README.rst', encoding='utf-8').read(),
     packages=find_packages(),
     include_package_data=True,
     keywords='django assets staticfiles Node.js npm package.json',

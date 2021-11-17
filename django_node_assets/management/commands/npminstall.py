@@ -44,13 +44,13 @@ class Command(BaseCommand):
                     shell=True,
                     stdout=PIPE,
                     stderr=STDOUT,
+                    encoding='utf-8',
             ) as p:
                 for line in p.stdout:
-                    decoded_line = line.decode()
-                    if decoded_line.startswith('npm WARN'):
-                        self.stdout.write(self.style.WARNING(decoded_line), ending='')
+                    if line.startswith('npm WARN'):
+                        self.stdout.write(self.style.WARNING(line), ending='')
                     else:
-                        self.stdout.write(decoded_line)
+                        self.stdout.write(line)
         if p.poll() == 0:
             self.stdout.write(self.style.SUCCESS('All dependencies have been successfully installed.'))
         else:
