@@ -1,7 +1,5 @@
-import os
-import os.path
-import shutil
 import subprocess
+from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -9,19 +7,18 @@ from django.core.management.base import BaseCommand
 
 class NodePackageContext:
     def __init__(self):
-        self.package_dir = os.path.dirname(settings.NODE_MODULES_ROOT)
-        self.package_json = os.path.join(self.package_dir, 'package.json')
+        self.package_json = Path(settings.NODE_MODULES_ROOT).parent.joinpath(
+            'package.json'
+        )
 
     def __enter__(self):
-        if self.package_json != str(settings.NODE_PACKAGE_JSON):
-            shutil.copy(settings.NODE_PACKAGE_JSON, self.package_json)
+        if not self.package_json.exists():
+            Path(self.package_json).symlink_to(settings.NODE_PACKAGE_JSON)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.package_json != str(settings.NODE_PACKAGE_JSON) and os.path.exists(
-            self.package_json
-        ):
-            os.remove(self.package_json)
+        if self.package_json.is_symlink():
+            self.package_json.unlink()
         return False
 
 
@@ -30,31 +27,29 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         if not hasattr(settings, 'NODE_PACKAGE_JSON'):
-            self.stderr.write('The NODE_PACKAGE_JSON option is not specified.')
-            return
-        if not os.path.isfile(settings.NODE_PACKAGE_JSON):
-            self.stderr.write(
-                'The {} file not found.'.format(settings.NODE_PACKAGE_JSON)
-            )
-            return
-        if not os.path.isdir(settings.NODE_MODULES_ROOT):
-            self.stderr.write(
-                'The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT)
-            )
+            self.stderr.write('The "NODE_PACKAGE_JSON" setting is not specified.')
             return
 
-        with NodePackageContext() as node_package_context:
-            node_package_manager_executable = getattr(
-                settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
-            )
+        if not Path(settings.NODE_PACKAGE_JSON).exists():
+            self.stderr.write(f'The "{settings.NODE_PACKAGE_JSON}" file not found.')
+            return
+
+        node_modules_root = Path(settings.NODE_MODULES_ROOT)
+
+        if not node_modules_root.is_dir():
+            node_modules_root.mkdir(parents=True)
+
+        with NodePackageContext():
             try:
                 output = subprocess.check_output(
                     args=[
-                        node_package_manager_executable,
+                        getattr(
+                            settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
+                        ),
                         'install',
                         '--no-package-lock',
-                        f'--prefix={node_package_context.package_dir}',
                     ],
+                    cwd=node_modules_root.parent,
                     encoding='utf-8',
                 )
             except subprocess.CalledProcessError:
