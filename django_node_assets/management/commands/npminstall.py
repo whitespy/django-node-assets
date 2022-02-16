@@ -1,7 +1,7 @@
 import os
 import os.path
 import shutil
-from subprocess import PIPE, STDOUT, Popen
+import subprocess
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -42,29 +42,27 @@ class Command(BaseCommand):
                 'The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT)
             )
             return
+
         with NodePackageContext() as node_package_context:
-            with Popen(
-                args=[
-                    'install',
-                    '--no-package-lock',
-                    '--prefix={}'.format(node_package_context.package_dir),
-                ],
-                executable=getattr(
-                    settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
-                ),
-                shell=True,
-                stdout=PIPE,
-                stderr=STDOUT,
-                encoding='utf-8',
-            ) as p:
-                for line in p.stdout:
-                    if line.startswith('npm WARN'):
-                        self.stdout.write(self.style.WARNING(line), ending='')
-                    else:
-                        self.stdout.write(line)
-        if p.poll() == 0:
-            self.stdout.write(
-                self.style.SUCCESS('All dependencies have been successfully installed.')
+            node_package_manager_executable = getattr(
+                settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
             )
-        else:
-            self.stderr.write('An error occurred.')
+            try:
+                output = subprocess.check_output(
+                    args=[
+                        node_package_manager_executable,
+                        'install',
+                        '--no-package-lock',
+                        f'--prefix={node_package_context.package_dir}',
+                    ],
+                    encoding='utf-8',
+                )
+            except subprocess.CalledProcessError:
+                self.stderr.write('An error occurred.')
+            else:
+                self.stdout.write(output)
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        'All dependencies have been successfully installed.'
+                    )
+                )
