@@ -12,6 +12,7 @@ class NodeModulesFinder(BaseFinder):
     in the NODE_MODULES_ROOT, and excludes metadata and unwanted files when
     static files will be collected.
     """
+
     storage = FileSystemStorage(location=settings.NODE_MODULES_ROOT)
     ignore_patterns = [
         '*.less',
@@ -94,6 +95,7 @@ class ManifestNodeModulesFinder(NodeModulesFinder):
     specified in the package.json and excludes metadata and unwanted files when
     static files will be collected.
     """
+
     def list(self, *args, **kwargs):
         try:
             with open(settings.NODE_PACKAGE_JSON) as f:
@@ -102,9 +104,15 @@ class ManifestNodeModulesFinder(NodeModulesFinder):
             for path in get_files(self.storage, self.ignore_patterns):
                 yield path, self.storage
         else:
-            if 'dependencies' in package_json and isinstance(package_json['dependencies'], dict):
-                node_modules = {node_module for node_module in package_json['dependencies'].keys()}
+            if 'dependencies' in package_json and isinstance(
+                package_json['dependencies'], dict
+            ):
+                node_modules = {
+                    node_module for node_module in package_json['dependencies'].keys()
+                }
                 for module in node_modules:
                     if self.storage.exists(module):
-                        for path in get_files(self.storage, self.ignore_patterns, module):
+                        for path in get_files(
+                            self.storage, self.ignore_patterns, module
+                        ):
                             yield path, self.storage

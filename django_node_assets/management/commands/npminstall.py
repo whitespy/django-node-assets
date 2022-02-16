@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 
 
 class NodePackageContext:
-
     def __init__(self):
         self.package_dir = os.path.dirname(settings.NODE_MODULES_ROOT)
         self.package_json = os.path.join(self.package_dir, 'package.json')
@@ -19,7 +18,9 @@ class NodePackageContext:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.package_json != str(settings.NODE_PACKAGE_JSON) and os.path.exists(self.package_json):
+        if self.package_json != str(settings.NODE_PACKAGE_JSON) and os.path.exists(
+            self.package_json
+        ):
             os.remove(self.package_json)
         return False
 
@@ -32,19 +33,29 @@ class Command(BaseCommand):
             self.stderr.write('The NODE_PACKAGE_JSON option is not specified.')
             return
         if not os.path.isfile(settings.NODE_PACKAGE_JSON):
-            self.stderr.write('The {} file not found.'.format(settings.NODE_PACKAGE_JSON))
+            self.stderr.write(
+                'The {} file not found.'.format(settings.NODE_PACKAGE_JSON)
+            )
             return
         if not os.path.isdir(settings.NODE_MODULES_ROOT):
-            self.stderr.write('The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT))
+            self.stderr.write(
+                'The {} directory does not exist.'.format(settings.NODE_MODULES_ROOT)
+            )
             return
         with NodePackageContext() as node_package_context:
             with Popen(
-                    args=['install', '--no-package-lock', '--prefix={}'.format(node_package_context.package_dir)],
-                    executable=getattr(settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'),
-                    shell=True,
-                    stdout=PIPE,
-                    stderr=STDOUT,
-                    encoding='utf-8',
+                args=[
+                    'install',
+                    '--no-package-lock',
+                    '--prefix={}'.format(node_package_context.package_dir),
+                ],
+                executable=getattr(
+                    settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
+                ),
+                shell=True,
+                stdout=PIPE,
+                stderr=STDOUT,
+                encoding='utf-8',
             ) as p:
                 for line in p.stdout:
                     if line.startswith('npm WARN'):
@@ -52,6 +63,8 @@ class Command(BaseCommand):
                     else:
                         self.stdout.write(line)
         if p.poll() == 0:
-            self.stdout.write(self.style.SUCCESS('All dependencies have been successfully installed.'))
+            self.stdout.write(
+                self.style.SUCCESS('All dependencies have been successfully installed.')
+            )
         else:
             self.stderr.write('An error occurred.')

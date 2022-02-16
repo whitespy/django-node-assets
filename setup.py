@@ -5,7 +5,7 @@ setup(
     name='django-node-assets',
     version='0.9.10',
     description='The Django application that allows install and serve assets via Node.js package '
-                'manager infrastructure.',
+    'manager infrastructure.',
     author='Andrey Butenko',
     author_email='whitespysoftware@gmail.ru',
     url='https://github.com/whitespy/django-node-assets',
@@ -29,5 +29,5 @@ setup(
         'Framework :: Django :: 3.0',
         'Framework :: Django :: 3.1',
         'Framework :: Django :: 3.2',
-    ]
+    ],
 )
