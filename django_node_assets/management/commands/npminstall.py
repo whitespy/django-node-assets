@@ -13,7 +13,7 @@ class NodePackageContext:
 
     def __enter__(self):
         if not self.package_json.exists():
-            Path(self.package_json).symlink_to(settings.NODE_PACKAGE_JSON)
+            self.package_json.symlink_to(settings.NODE_PACKAGE_JSON)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
