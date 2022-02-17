@@ -2,6 +2,14 @@
 Changelog
 #########
 
+Release 0.9.11
+--------------
+
+- Reformatted code with Black
+- Replaced subprocess.Popen by subprocess.check_output method to call npm install command
+- Replaced os, os.path, shutil module features by pathlib module features
+- Remove Python3.6 and Django 2.1/3.0/3.1 versions support, add Django 4.0 support
+
 Release 0.9.10
 --------------
 
