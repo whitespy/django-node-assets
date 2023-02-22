@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -44,7 +45,7 @@ class Command(BaseCommand):
                 output = subprocess.check_output(
                     args=[
                         getattr(
-                            settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
+                            settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', shutil.which('npm')
                         ),
                         'install',
                         '--no-package-lock',
