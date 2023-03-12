@@ -116,5 +116,5 @@ Use Django`s static template tag to link installed assets
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
     <!-- Some amazing markup -->
-    <script src="{% static 'jquery/dist/jquery.min.js' }"><script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.js' }"><script>
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
