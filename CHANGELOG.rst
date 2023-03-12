@@ -2,6 +2,12 @@
 Changelog
 #########
 
+Release 0.9.12
+--------------
+
+- Fixed a typo in README.rst, thanks to proofit404
+- Declared compatibility with Python 3.11 and Django 4.1
+
 Release 0.9.11
 --------------
 
