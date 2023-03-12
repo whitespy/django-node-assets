@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-node-assets',
-    version='0.9.11',
+    version='0.9.12',
     description='The Django application that allows install and serve assets via Node.js package '
     'manager infrastructure.',
     author='Andrey Butenko',
