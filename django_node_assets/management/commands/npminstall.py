@@ -45,7 +45,9 @@ class Command(BaseCommand):
                 output = subprocess.check_output(
                     args=[
                         getattr(
-                            settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', shutil.which('npm')
+                            settings,
+                            'NODE_PACKAGE_MANAGER_EXECUTABLE',
+                            shutil.which('npm'),
                         ),
                         'install',
                         '--no-package-lock',
