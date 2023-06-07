@@ -1,9 +1,52 @@
-[tool.black]
-skip-string-normalization = true
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="django-node-assets"
+version = "0.9.12"
+description = "The Django application that allows to install and serve assets via Node.js package manager infrastructure."
+readme = "README.rst"
+license = { file = "LICENSE.txt" }
+authors = [
+    { name = "Andrey Butenko", email = "whitespysoftware@gmail.ru" },
+]
+keywords=[
+    "django",
+    "assets",
+    "staticfiles",
+    "Node.js",
+    "npm",
+    "package.json",
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Framework :: Django",
+    "Framework :: Django :: 2.2",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "build",
+    "flake8",
+    "isort",
+    "twine",
+]
+
+[project.urls]
+GitHub = "https://github.com/whitespy/django-node-assets"
 
 [tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-use_parentheses = true
-ensure_newline_before_comments = true
-line_length = 88
+profile = "black"

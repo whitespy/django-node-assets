@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 class NodePackageContext:
     def __init__(self):
         self.package_json = Path(settings.NODE_MODULES_ROOT).parent.joinpath(
-            'package.json'
+            "package.json"
         )
 
     def __enter__(self):
@@ -23,10 +23,10 @@ class NodePackageContext:
 
 
 class Command(BaseCommand):
-    help = 'Installs all dependencies listed in the package.json'
+    help = "Installs all dependencies listed in the package.json"
 
     def handle(self, **options):
-        if not hasattr(settings, 'NODE_PACKAGE_JSON'):
+        if not hasattr(settings, "NODE_PACKAGE_JSON"):
             self.stderr.write('The "NODE_PACKAGE_JSON" setting is not specified.')
             return
 
@@ -44,20 +44,20 @@ class Command(BaseCommand):
                 output = subprocess.check_output(
                     args=[
                         getattr(
-                            settings, 'NODE_PACKAGE_MANAGER_EXECUTABLE', '/usr/bin/npm'
+                            settings, "NODE_PACKAGE_MANAGER_EXECUTABLE", "/usr/bin/npm"
                         ),
-                        'install',
-                        '--no-package-lock',
+                        "install",
+                        "--no-package-lock",
                     ],
                     cwd=node_modules_root.parent,
-                    encoding='utf-8',
+                    encoding="utf-8",
                 )
             except subprocess.CalledProcessError:
-                self.stderr.write('An error occurred.')
+                self.stderr.write("An error occurred.")
             else:
                 self.stdout.write(output)
                 self.stdout.write(
                     self.style.SUCCESS(
-                        'All dependencies have been successfully installed.'
+                        "All dependencies have been successfully installed."
                     )
                 )
