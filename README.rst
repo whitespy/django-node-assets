@@ -2,9 +2,6 @@
 Django-node-assets
 ##################
 
-.. image:: https://travis-ci.org/whitespy/django-node-assets.svg
-    :target: https://travis-ci.org/whitespy/django-node-assets
-
 .. image:: https://badge.fury.io/py/django-node-assets.svg
     :target: https://badge.fury.io/py/django-node-assets
 
@@ -13,6 +10,9 @@ Django-node-assets
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
+
+.. image:: https://github.com/whitespy/django-node-assets/actions/workflows/code_quality_check.yml/badge.svg
+    :target: https://github.com/whitespy/django-node-assets/actions/workflows/code_quality_check.yml
 
 |
 

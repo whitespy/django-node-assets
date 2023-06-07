@@ -9,7 +9,7 @@ description = "The Django application that allows to install and serve assets vi
 readme = "README.rst"
 license = { file = "LICENSE.txt" }
 authors = [
-    { name = "Andrey Butenko", email = "whitespysoftware@gmail.ru" },
+    { name = "Andrey Butenko", email = "whitespysoftware@gmail.com" },
 ]
 keywords=[
     "django",
