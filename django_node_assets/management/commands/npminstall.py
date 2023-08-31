@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -39,13 +40,15 @@ class Command(BaseCommand):
         if not node_modules_root.is_dir():
             node_modules_root.mkdir(parents=True)
 
+        node_package_manager_executable = getattr(
+            settings, "NODE_PACKAGE_MANAGER_EXECUTABLE", None
+        ) or shutil.which("npm")
+
         with NodePackageContext():
             try:
                 output = subprocess.check_output(
                     args=[
-                        getattr(
-                            settings, "NODE_PACKAGE_MANAGER_EXECUTABLE", "/usr/bin/npm"
-                        ),
+                        node_package_manager_executable,
                         "install",
                         "--no-package-lock",
                     ],

@@ -89,7 +89,7 @@ Specify the absolute path to a directory where the **nmpinstall** management com
 
     A base dir must be called **node_modules**.
 
-Specify path to the node package manager executable (optional)
+Override path to the node package manager executable (optional)
 
 .. code:: python
 
