@@ -2,10 +2,17 @@
 Changelog
 #########
 
+Release 0.9.13
+--------------
+
+- Moved package configuration to pyproject.toml
+- Added feature to get path to npm executable automatically by using shutil.which function, thanks to `prplecake <https://github.com/prplecake>`_
+- Declared compatibility with Django 4.2
+
 Release 0.9.12
 --------------
 
-- Fixed a typo in README.rst, thanks to proofit404
+- Fixed a typo in README.rst, thanks to `proofit404 <https://github.com/proofit404>`_
 - Declared compatibility with Python 3.11 and Django 4.1
 
 Release 0.9.11
