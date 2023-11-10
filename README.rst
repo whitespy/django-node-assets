@@ -79,7 +79,7 @@ Specify absolute path to the package.json file:
     Details here: https://docs.npmjs.com/files/package.json#dependencies
 
 
-Specify the absolute path to a directory where the **nmpinstall** management command will install assets:
+Specify the absolute path to a directory where the **npminstall** management command will install assets:
 
 .. code:: python
 
@@ -102,7 +102,7 @@ Override path to the node package manager executable (optional)
 Usage
 -----
 
-Call the **nmpinstall** management command to install dependencies specified in the package.json
+Call the **npminstall** management command to install dependencies specified in the package.json
 
 .. code:: bash
 
