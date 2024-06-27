@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name="django-node-assets"
-version = "0.9.13"
+version = "0.9.14"
 description = "The Django application that allows to install and serve assets via Node.js package manager infrastructure."
 readme = "README.rst"
 license = { file = "LICENSE.txt" }
