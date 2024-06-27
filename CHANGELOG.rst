@@ -2,6 +2,13 @@
 Changelog
 #########
 
+Release 0.9.14
+--------------
+
+- Added the NODE_PACKAGE_MANAGER_INSTALL_OPTIONS setting
+- Declared compatibility with Python 3.12 and Django 5.0
+- Removed Django 3.2/4.1 versions support
+
 Release 0.9.13
 --------------
 
