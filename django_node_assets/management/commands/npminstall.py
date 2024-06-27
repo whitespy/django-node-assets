@@ -44,13 +44,22 @@ class Command(BaseCommand):
             settings, "NODE_PACKAGE_MANAGER_EXECUTABLE", None
         ) or shutil.which("npm")
 
+        node_package_manager_install_options = getattr(
+            settings,
+            "NODE_PACKAGE_MANAGER_INSTALL_OPTIONS",
+            [
+                "--no-package-lock",
+                "--production",
+            ],
+        )
+
         with NodePackageContext():
             try:
                 output = subprocess.check_output(
                     args=[
                         node_package_manager_executable,
                         "install",
-                        "--no-package-lock",
+                        *node_package_manager_install_options,
                     ],
                     cwd=node_modules_root.parent,
                     encoding="utf-8",

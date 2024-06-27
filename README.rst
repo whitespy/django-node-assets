@@ -99,6 +99,14 @@ Override path to the node package manager executable (optional)
 
     The node package manager must be already installed in your system.
 
+Override options of the node package manager install command (optional)
+
+.. code:: python
+
+    NODE_PACKAGE_MANAGER_INSTALL_OPTIONS = ['--dry-run']
+
+Defaults to **--no-package-lock**, **--production**.
+
 Usage
 -----
 
