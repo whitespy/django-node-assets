@@ -44,7 +44,7 @@ Add 'django_node_assets' to your INSTALLED_APPS:
 
     INSTALLED_APPS = [
         ...
-        'django_node_assets',
+        "django_node_assets",
     ]
 
 Add NodeModulesFinder to STATICFILES_FINDERS:
@@ -52,16 +52,16 @@ Add NodeModulesFinder to STATICFILES_FINDERS:
 .. code:: python
 
     STATICFILES_FINDERS = [
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-        'django_node_assets.finders.NodeModulesFinder',
+        "django.contrib.staticfiles.finders.FileSystemFinder",
+        "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+        "django_node_assets.finders.NodeModulesFinder",
     ]
 
 Specify absolute path to the package.json file:
 
 .. code:: python
 
-    NODE_PACKAGE_JSON = '/var/assets/package.json'
+    NODE_PACKAGE_JSON = "/var/assets/package.json"
 
 .. note::
 
@@ -83,7 +83,7 @@ Specify the absolute path to a directory where the **npminstall** management com
 
 .. code:: python
 
-    NODE_MODULES_ROOT = '/var/assets/node_modules'
+    NODE_MODULES_ROOT = "/var/assets/node_modules"
 
 .. note::
 
@@ -93,7 +93,7 @@ Override path to the node package manager executable (optional)
 
 .. code:: python
 
-    NODE_PACKAGE_MANAGER_EXECUTABLE = '/usr/local/bin/npm'
+    NODE_PACKAGE_MANAGER_EXECUTABLE = "/usr/local/bin/npm"
 
 .. note::
 
@@ -103,7 +103,7 @@ Override options of the node package manager install command (optional)
 
 .. code:: python
 
-    NODE_PACKAGE_MANAGER_INSTALL_OPTIONS = ['--dry-run']
+    NODE_PACKAGE_MANAGER_INSTALL_OPTIONS = ["--dry-run"]
 
 Defaults to **--no-package-lock**, **--production**.
 
