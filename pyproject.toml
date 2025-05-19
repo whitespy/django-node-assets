@@ -36,15 +36,50 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "build",
-    "flake8",
-    "isort",
+    "ruff",
     "twine",
 ]
 
 [project.urls]
 GitHub = "https://github.com/whitespy/django-node-assets"
 
-[tool.isort]
-profile = "black"
+[tool.ruff.lint]
+preview = true
+select = [
+    "A",    # flake8-builtins
+    "ARG",  # flake8-unused-arguments
+    "B",    # flake8-bugbear
+    "BLE",  # flake8-blind-except
+    "C4",   # flake8-comprehensions
+    "C90",  # McCabe cyclomatic complexity
+    "E",    # pycodestyle (Error)
+    "F",    # Pyflakes
+    "FLY",  # flynt
+    "FURB", # refurb
+    "I",    # isort
+    "INT",  # flake8-gettext
+    "ISC",  # flake8-implicit-str-concat
+    "N",    # pep8-naming
+    "PERF", # Perflint
+    "PIE",  # flake8-pie
+    "PL",   # Pylint
+    "Q",    # flake8-quotes
+    "RET",  # flake8-return
+    "RSE",  # flake8-raise
+    "S",    # flake8-bandit
+    "SIM",  # flake8-simplify
+    "SLF",  # flake8-self
+    "SLOT", # flake8-slots
+    "T20",  # flake8-print
+    "UP",   # pyupgrade
+    "W",    # pycodestyle (Warning)
+]
+ignore = [
+    "A002",
+    "ARG002",
+    "S404",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["django_node_assets"]

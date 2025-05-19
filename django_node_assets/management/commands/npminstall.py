@@ -62,7 +62,7 @@ class Command(BaseCommand):
                         *node_package_manager_install_options,
                     ],
                     cwd=node_modules_root.parent,
-                    encoding="utf-8",
+                    text=True,
                 )
             except subprocess.CalledProcessError:
                 self.stderr.write("An error occurred.")

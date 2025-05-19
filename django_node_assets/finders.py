@@ -98,18 +98,17 @@ class ManifestNodeModulesFinder(NodeModulesFinder):
 
     def list(self, *args, **kwargs):
         try:
-            with open(settings.NODE_PACKAGE_JSON) as f:
+            with open(settings.NODE_PACKAGE_JSON, encoding="utf-8") as f:
                 package_json = json.load(f)
-        except IOError:
+        except FileNotFoundError:
             for path in get_files(self.storage, self.ignore_patterns):
                 yield path, self.storage
         else:
             if "dependencies" in package_json and isinstance(
                 package_json["dependencies"], dict
             ):
-                node_modules = {
-                    node_module for node_module in package_json["dependencies"].keys()
-                }
+                node_modules = package_json["dependencies"].keys()
+
                 for module in node_modules:
                     if self.storage.exists(module):
                         for path in get_files(

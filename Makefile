@@ -1,13 +1,12 @@
 .PHONY: check-code fix-code build-dist check-dist upload-dist clean
 
 check-code:
-	@python -m flake8 django_node_assets
-	@python -m isort django_node_assets --check
-	@python -m black django_node_assets --check
+	@python -m ruff check
+	@python -m ruff format --check
 
 fix-code:
-	@python -m isort django_node_assets
-	@python -m black django_node_assets
+	@python -m ruff check --fix
+	@python -m ruff format
 
 build-dist: clean
 	@python -m build

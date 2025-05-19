@@ -5,11 +5,8 @@ Django-node-assets
 .. image:: https://badge.fury.io/py/django-node-assets.svg
     :target: https://badge.fury.io/py/django-node-assets
 
-.. image:: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
-    :target: https://pycqa.github.io/isort/
-
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
+.. image:: https://img.shields.io/badge/linter-ruff-FF69B4
+    :target: https://github.com/astral-sh/ruff
 
 .. image:: https://github.com/whitespy/django-node-assets/actions/workflows/code_quality_check.yml/badge.svg
     :target: https://github.com/whitespy/django-node-assets/actions/workflows/code_quality_check.yml
@@ -72,7 +69,7 @@ Specify absolute path to the package.json file:
         {
             "dependencies": {
                 "jquery": "^3.2.1",
-                "bootstrap": "^3.3.5",
+                "bootstrap": "^3.3.5"
             }
         }
 
