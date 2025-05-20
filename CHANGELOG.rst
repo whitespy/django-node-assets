@@ -2,6 +2,11 @@
 Changelog
 #########
 
+Release 0.9.15
+--------------
+
+- Added Django 5.2 support
+
 Release 0.9.14
 --------------
 
