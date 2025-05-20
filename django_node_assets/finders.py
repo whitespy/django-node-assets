@@ -1,5 +1,6 @@
 import json
 
+import django
 from django.conf import settings
 from django.contrib.staticfiles.finders import BaseFinder
 from django.contrib.staticfiles.utils import get_files
@@ -75,11 +76,16 @@ class NodeModulesFinder(BaseFinder):
         "node_modules",
     ]
 
-    def find(self, path, all=False):
+    def find(self, path, **kwargs):
+        if django.VERSION >= (5, 2):
+            find_all = kwargs.get("find_all", False)
+        else:
+            find_all = kwargs.get("all", False)
+
         matches = []
         if self.storage.exists(path):
             matched_path = self.storage.path(path)
-            if not all:
+            if not find_all:
                 return matched_path
             matches.append(matched_path)
         return matches
