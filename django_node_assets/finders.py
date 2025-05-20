@@ -75,11 +75,12 @@ class NodeModulesFinder(BaseFinder):
         "node_modules",
     ]
 
-    def find(self, path, all=False):
+    def find(self, path, find_all=False, **kwargs):
+        find_all = find_all or kwargs.get("all", False)
         matches = []
         if self.storage.exists(path):
             matched_path = self.storage.path(path)
-            if not all:
+            if not find_all:
                 return matched_path
             matches.append(matched_path)
         return matches
