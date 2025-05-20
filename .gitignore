@@ -1,5 +1,6 @@
 *.py[cow]
 .idea
+.ruff_cache
 build/
 dist/
 django_node_assets.egg-info/
