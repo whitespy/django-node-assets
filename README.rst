@@ -13,17 +13,17 @@ Django-node-assets
 
 |
 
-The Django application that allows to install and to serve static assets via Node.js package manager infrastructure.
-The application exposes management command to install dependencies from your **package.json** and several static files
+The Django application that allows installing and serving static assets via Node.js package manager infrastructure.
+The application exposes a management command to install dependencies from your **package.json** and several static files
 finders to find files from installed node packages and exclude metadata of node packages and unwanted files when
-static files will be collected via Django`s **collectstatic** management command execution.
+static files will be collected via Django's **collectstatic** management command execution.
 
 Features
 --------
 
 - Avoiding vendoring static assets in your repository like jQuery plugins, Bootstrap toolkit, etc
-- Avoiding mess in **STATIC_ROOT** through exclusion node packages` metatadata and unwanted files
-- Installing dependencies by Django`s management command
+- Avoiding mess in **STATIC_ROOT** through exclusion node packages' metadata and unwanted files
+- Installing dependencies by Django's management command
 
 Installation
 ------------
@@ -113,7 +113,7 @@ Call the **npminstall** management command to install dependencies specified in 
 
     $ python manage.py npminstall
 
-Use Django`s static template tag to link installed assets
+Use Django's static template tag to link installed assets
 
 .. code:: html
 
