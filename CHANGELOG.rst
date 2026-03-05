@@ -2,6 +2,13 @@
 Changelog
 #########
 
+Release 0.9.16
+--------------
+
+- Refactored `NodeModulesFinder` and `ManifestNodeModulesFinder` classes
+- Declared compatibility with Python 3.14 and Django 6.0
+- Dropped support for Python 3.9 and Django 5.0/5.1
+
 Release 0.9.15
 --------------
 
@@ -10,9 +17,9 @@ Release 0.9.15
 Release 0.9.14
 --------------
 
-- Added the NODE_PACKAGE_MANAGER_INSTALL_OPTIONS setting
+- Added the `NODE_PACKAGE_MANAGER_INSTALL_OPTIONS` setting
 - Declared compatibility with Python 3.12 and Django 5.0
-- Removed Django 3.2/4.1 versions support
+- Dropped support for Django 3.2/4.1
 
 Release 0.9.13
 --------------
@@ -33,7 +40,7 @@ Release 0.9.11
 - Reformatted code with Black
 - Replaced subprocess.Popen by subprocess.check_output method to call npm install command
 - Replaced os, os.path, shutil module features by pathlib module features
-- Remove Python3.6 and Django 2.1/3.0/3.1 versions support, add Django 4.0 support
+- Dropped support for Python3.6 and Django 2.1/3.0/3.1, add Django 4.0 support
 
 Release 0.9.10
 --------------
