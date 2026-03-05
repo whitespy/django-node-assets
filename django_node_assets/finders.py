@@ -14,67 +14,69 @@ class NodeModulesFinder(BaseFinder):
     static files will be collected.
     """
 
-    storage = FileSystemStorage(location=settings.NODE_MODULES_ROOT)
-    ignore_patterns = [
-        "*.less",
-        "*.scss",
-        "*.styl",
-        "*.sh",
+    default_ignore_patterns = [
+        "*.coffee",
+        "*.es6",
         "*.htm",
         "*.html",
-        "*.md",
-        "*.markdown",
-        "*.rst",
-        "*.php",
-        "*.rb",
-        "*.txt",
-        "*.map",
-        "*.yml",
-        "*.yaml",
         "*.json",
-        "*.xml",
-        "*.ts",
-        "*.es6",
-        "*.coffee",
+        "*.less",
         "*.litcoffee",
         "*.lock",
+        "*.map",
+        "*.markdown",
+        "*.md",
         "*.patch",
-        "README*",
-        "LICENSE*",
-        "LICENCE*",
-        "CHANGES",
-        "CHANGELOG",
-        "HISTORY",
-        "NOTICE",
-        "COPYING",
-        "license",
-        "*test*",
+        "*.php",
+        "*.rb",
+        "*.rst",
+        "*.scss",
+        "*.sh",
+        "*.styl",
+        "*.ts",
+        "*.txt",
+        "*.xml",
+        "*.yaml",
+        "*.yml",
         "*bin*",
-        "*samples*",
-        "*example*",
-        "*docs*",
-        "*tests*",
         "*demo*",
-        "Makefile*",
+        "*docs*",
+        "*example*",
+        "*samples*",
+        "*test*",
+        "*tests*",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".gitmodules",
+        ".npmignore",
+        ".sqlite",
+        ".tagconfig",
+        "CHANGELOG",
+        "CHANGES",
+        "COPYING",
         "Gemfile*",
         "Gruntfile*",
-        "gulpfile.js",
-        ".tagconfig",
-        ".npmignore",
-        ".gitignore",
-        ".gitattributes",
-        ".gitmodules",
-        ".editorconfig",
-        ".sqlite",
+        "HISTORY",
+        "LICENCE*",
+        "LICENSE*",
+        "Makefile*",
+        "NOTICE",
+        "README*",
+        "coffee",
         "grunt",
         "gulp",
+        "gulpfile.js",
         "less",
+        "license",
+        "node_modules",
         "sass",
         "scss",
-        "coffee",
         "tasks",
-        "node_modules",
     ]
+
+    def __init__(self, *args, **kwargs):
+        self.storage = FileSystemStorage(location=settings.NODE_MODULES_ROOT)
 
     def find(self, path, **kwargs):
         if django.VERSION >= (5, 2):
@@ -83,15 +85,21 @@ class NodeModulesFinder(BaseFinder):
             find_all = kwargs.get("all", False)
 
         matches = []
+
         if self.storage.exists(path):
             matched_path = self.storage.path(path)
+
             if not find_all:
                 return matched_path
+
             matches.append(matched_path)
+
         return matches
 
-    def list(self, *args, **kwargs):
-        for path in get_files(self.storage, self.ignore_patterns):
+    def list(self, ignore_patterns):
+        ignore_patterns = {*self.default_ignore_patterns, *ignore_patterns}
+
+        for path in get_files(storage=self.storage, ignore_patterns=ignore_patterns):
             yield path, self.storage
 
 
@@ -102,22 +110,22 @@ class ManifestNodeModulesFinder(NodeModulesFinder):
     static files will be collected.
     """
 
-    def list(self, *args, **kwargs):
+    def list(self, ignore_patterns):
         try:
             with open(settings.NODE_PACKAGE_JSON, encoding="utf-8") as f:
                 package_json = json.load(f)
-        except FileNotFoundError:
-            for path in get_files(self.storage, self.ignore_patterns):
-                yield path, self.storage
-        else:
-            if "dependencies" in package_json and isinstance(
-                package_json["dependencies"], dict
-            ):
-                node_modules = package_json["dependencies"].keys()
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
+            return None
 
-                for module in node_modules:
-                    if self.storage.exists(module):
-                        for path in get_files(
-                            self.storage, self.ignore_patterns, module
-                        ):
-                            yield path, self.storage
+        package_json_dependencies = package_json.get("dependencies", {})
+
+        ignore_patterns = {*self.default_ignore_patterns, *ignore_patterns}
+
+        for dependency in package_json_dependencies:
+            if self.storage.exists(dependency):
+                for path in get_files(
+                    storage=self.storage,
+                    ignore_patterns=ignore_patterns,
+                    location=dependency,
+                ):
+                    yield path, self.storage
