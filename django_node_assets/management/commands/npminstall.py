@@ -26,7 +26,7 @@ class NodePackageContext:
 class Command(BaseCommand):
     help = "Installs all dependencies listed in the package.json"
 
-    def handle(self, **options):
+    def handle(self, *args, **options):
         if not hasattr(settings, "NODE_PACKAGE_JSON"):
             self.stderr.write('The "NODE_PACKAGE_JSON" setting is not specified.')
             return
