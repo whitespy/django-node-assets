@@ -54,6 +54,16 @@ Add NodeModulesFinder to STATICFILES_FINDERS:
         "django_node_assets.finders.NodeModulesFinder",
     ]
 
+Or if you only want your direct dependencies to be collected, add ManifestNodeModulesFinder instead:
+
+.. code:: python
+
+    STATICFILES_FINDERS = [
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'django_node_assets.finders.ManifestNodeModulesFinder',
+    ]
+
 Specify absolute path to the package.json file:
 
 .. code:: python
